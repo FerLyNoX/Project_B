@@ -1,0 +1,17 @@
+{% extends "base.html"%}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<form method="post" class="uniForm form-horizontal" >
+    {% csrf_token %}
+    <div class="alert alert-danger" role="alert">
+         <h4 class="alert-heading">Удаление элемента</h4>
+        <p>Вы  действительно хотите удалить {{ object.name }}?</p>
+        <div>
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <button type="submit" class="btn btn-link">Отмена</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
