@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Дата</th>
+    <th scope="col">Проект</th>
+    <th scope="col">Сумма</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for income in page_obj %}
+  <tr>
+    <td>
+      {{ income.date}}
+    </td>
+    <td>
+      <a href="{% url "project-item" pk=income.project_id %}"> {{ income.project.name }}</a>
+    </td>
+    <td>{{ income.sum }}</td>
+    <td>
+      <a href="{% url "incomes-item" pk=income.pk %}" class="btn btn-primary">Изменить</a>
+      <a href="{% url "incomes-delete" pk=income.pk %}" class="btn btn-danger">Удалить</a>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% include "pagination.html" %}
+<a href="{% url "incomes-create" %}" class="btn btn-primary">Создать новый</a>
+{% endblock %}

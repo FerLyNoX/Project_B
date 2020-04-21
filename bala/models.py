@@ -126,7 +126,7 @@ class Outcomes(models.Model):
         related_name='outcomes',
         verbose_name='Проект',
     )
-    Worker = models.ForeignKey(
+    worker = models.ForeignKey(
         Worker,
         on_delete=models.PROTECT,
         related_name='payments',

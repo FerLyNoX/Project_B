@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Проект</th>
+      <th scope="col">Работник</th>
+      <th scope="col">Сумма</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for member in page_obj %}
+    <tr>
+      <td>
+        <a href="{% url "project-item" pk=member.project_id %}">{{ member.project.name }}</a>
+      </td>
+      <td>
+        <a href="{% url "worker-item" pk=member.worker_id %}">{{ member.worker.name }}</a>
+      </td>
+      <td>{{ member.sum }}</td>
+      <td>
+        <a href="{% url "members-item" pk=member.pk %}" class="btn btn-primary">Изменить</a>
+        <a href="{% url "members-delete" pk=member.pk %}" class="btn btn-danger">Удалить</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% include "pagination.html" %}
+<a href="{% url "members-create" %}" class="btn btn-primary">Создать нового участника</a>
+{% endblock %}

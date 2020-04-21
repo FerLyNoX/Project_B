@@ -1,0 +1,37 @@
+{% extends "base.html"%}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Дата</th>
+    <th scope="col">Проект</th>
+    <th scope="col">Работник</th>
+    <th scope="col">Сумма</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for outcome in page_obj %}
+  <tr>
+    <td>
+      {{ outcome.date}}
+    </td>
+    <td>
+      <a href="{% url "project-item" pk=outcome.project_id %}"> {{ outcome.project.name }}</a>
+    </td>
+     <td>
+      <a href="{% url "worker-item" pk=outcome.worker_id %}">{{ outcome.worker.name }}</a>
+    </td>
+    <td>{{ outcome.sum }}</td>
+    <td>
+      <a href="{% url "outcomes-item" pk=outcome.pk %}" class="btn btn-primary">Изменить</a>
+      <a href="{% url "outcomes-delete" pk=outcome.pk %}" class="btn btn-danger">Удалить</a>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% include "pagination.html" %}
+<a href="{% url "outcomes-create" %}" class="btn btn-primary">Создать новый</a>
+{% endblock %}
