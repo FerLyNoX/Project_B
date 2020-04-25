@@ -3,9 +3,11 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.forms import ModelForm, DateField, SelectDateWidget
 from django.urls import reverse_lazy
 from django_filters import FilterSet, DateRangeFilter, DateFromToRangeFilter
+from django_filters.widgets import DateRangeWidget
 from .urls import get_urls
 from bala.models import Incomes
 from bala.forms import IncomeForm
+from bala.forms.widgets import DateRangePickerInput
 
 def update_context(context, **kwargs):
     context.update({
@@ -16,8 +18,9 @@ def update_context(context, **kwargs):
     return context
 
 
+
 class IncomesFilter(FilterSet):
-    period = DateFromToRangeFilter(field_name='date', label='За период')
+    period = DateFromToRangeFilter(field_name='date', label='За период',widget=DateRangePickerInput(attrs={'placeholder': 'YYYY/MM/DD'}))
 
     class Meta:
         model = Incomes

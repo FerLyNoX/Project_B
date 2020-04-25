@@ -1,4 +1,8 @@
 {% block filter %}
+ <a class="btn btn-link" data-toggle="collapse" href="#filterform" role="button" aria-expanded="false" aria-controls="filterform">
+    Фильтры
+  </a>
+    <div class="collapse" id="filterform">
     <form method="get">
         {{ filter_form.as_p }}
 
@@ -7,4 +11,5 @@
     <form method="get">
         <input type="submit" value="Очистить">
     </form>
+    </div>
 {% endblock %}

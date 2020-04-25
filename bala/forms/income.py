@@ -5,11 +5,9 @@ from bala.models import Incomes
 __all__ = ('IncomeForm', )
 
 class IncomeForm(ModelForm):
-    date2 = DateTimeField(widget=DateTimePickerInput())
-
     class Meta:
         model = Incomes
-        fields = ['date', 'sum', 'project', 'date2']
+        fields = ['date', 'sum', 'project']
         widgets={
             'date': DatePickerInput(),
         }
