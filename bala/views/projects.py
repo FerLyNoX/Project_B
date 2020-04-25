@@ -3,14 +3,24 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from bala.models import Project
 from .urls import get_urls
 from django.urls import reverse_lazy
+from django_filters import FilterSet, DateRangeFilter, DateFromToRangeFilter
+from bala.forms.widgets import DateRangePickerInput
 
 
-def update_context(context):
+def update_context(context, **kwargs):
     context.update({
         'urls': get_urls(),
         'active_menu': 'projects',
+        **kwargs,
     })
     return context
+
+
+class ProjectFilter(FilterSet):
+
+    class Meta:
+        model = Project
+        fields = ('name', 'customer', 'area', 'cost',)
 
 
 class ProjectListView(ListView):
@@ -19,9 +29,15 @@ class ProjectListView(ListView):
     context_object_name = 'projects'
     template_name = 'project_list.html'
 
+    def get_queryset(self):
+        fff = ProjectFilter(self.request.GET, queryset=Project.objects.all())
+        return fff.qs
+
     def get_context_data(self, *args, **kwargs):
+        fff = ProjectFilter(self.request.GET, queryset=Project.objects.all())
         return update_context(
-            super().get_context_data(*args, **kwargs)
+            super().get_context_data(*args, **kwargs),
+            filter=fff,
         )
 
 
