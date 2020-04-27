@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="post" class="uniForm form-horizontal">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">OK</button>
+    </form>
+    <hr/>
+    <div class="button btn-secondary">Фактические постулпения по проекту:
+        {% if incomes_fact.sum %}
+            <span class="badge badge-light">
+            {{ incomes_fact.sum }}
+            </span>
+            <a href="{% url 'incomes' %}?project={{ object.id }}">Детальнее</a>
+        {% else %}
+            -
+        {% endif %}
+    </div>
+    <div class="button btn-secondary">Планируемые расходы по проекту:
+        {% if outcomes_plan.sum %}
+            <span class="badge badge-light">
+            {{ outcomes_plan.sum }}
+            </span>
+        {% else %}
+            -
+        {% endif %}
+    </div>
+    <div class="button btn-secondary">Фактические расходы по проекту:
+        {% if outcomes_fact_sum.sum %}
+            <span class="badge badge-light">
+            {{ outcomes_fact_sum.sum }}
+            </span>
+        {% else %}
+            -
+        {% endif %}
+    </div>
+    </table>
+
+
+{% endblock %}
