@@ -17,6 +17,7 @@
       </td>
       <td>{{ job.description }}</td>
       <td>
+        <a href="{% url "job-item" pk=job.pk %}" class="btn btn-primary">Изменить</a>
          <a href="{% url "job-delete" pk=job.pk %}" class="btn btn-danger">Удалить</a>
       </td>
     </tr>

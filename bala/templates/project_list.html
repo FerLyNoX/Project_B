@@ -26,6 +26,7 @@
       <td>{{ project.cost }}</td>
       <td>{{ project.description}}</td>
       <td>
+        <a href="{% url "project-item" pk=project.pk %}" class="btn btn-primary">Изменить</a>
          <a href="{% url "project-delete" pk=project.pk %}" class="btn btn-danger">Удалить</a>
       </td>
     </tr>
