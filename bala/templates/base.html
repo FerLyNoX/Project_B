@@ -1,8 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static "bala/css/animate.min.css" %}" rel="stylesheet">
+
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -29,13 +32,45 @@
           integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js"
             integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
+    <link href="{% static "bala/css/linearicons.css" %}" rel="stylesheet">
+    <link href="{% static "bala/css/theme.css" %}" rel="stylesheet">
+    <link href="{% static "bala/css/styles.css" %}" rel="stylesheet">
+
+
     <title>Title</title>
 </head>
-<body>
-{% include "navs.html" %}
+<body class="navbar-expand-lg wow fadeIn faster" data-wow-delay="300ms" data-spy="scroll" data-target="#sm"
+      data-offset="60">
+<div class="container-fluid fixed-top bg-primary" id="topnav">
+    <div class="row collapse show no-gutters d-flex h-100 position-relative sidebar-collapse">
+        <div class="col-3 w-sidebar navba" />
+            <nav class="navbar navbar-dark navbar-expand px-lg-1 "/>
+        </div>
+        <div class="col">
+            <nav class="navbar navbar-dark navbar-expand px-lg-1">
+                <a data-toggle="collapse" href="#" data-target=".sidebar-collapse" class="navbar-brand mr-3">
+                    <span class="h4 align-middle mb-0"><span class="lnr lnr-menu"></span></span>
+                </a>
+                <a class="navbar-brand" href="#" title="Home" data-toggle="dropdown">ProjectB</a>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container-fluid h-100 px-0">
+    <div class="row collapse show no-gutters d-flex h-100 position-relative sidebar-collapse">
+        <div class="col-3 p-0 h-100 w-sidebar navbar-collapse collapse d-none d-lg-flex sidebar-collapse sidebar">
+            <!-- fixed sidebar -->
 
-{% block content %}
-{% endblock %}
+            {% include "navs.html" %}
+        </div>
+        <div class="col p-0 d-flex flex-column">
+
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
