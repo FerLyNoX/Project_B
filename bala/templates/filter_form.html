@@ -1,15 +1,16 @@
+{% load crispy_forms_tags %}
 {% block filter %}
- <a class="btn btn-link" data-toggle="collapse" href="#filterform" role="button" aria-expanded="false" aria-controls="filterform">
-    Фильтры
-  </a>
-    <div class="collapse" id="filterform">
-    <form method="get">
-        {{ filter_form.as_p }}
-
-        <input type="submit" />
-    </form>
-    <form method="get">
-        <input type="submit" value="Очистить">
-    </form>
+    <div class=" filterbar collapse faster fade-in wow" id="filterform">
+        <form method="get">
+            {{ filter_form|crispy }}
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-filter"></i>
+                <span>Применить</span>
+            </button>
+            <a class="btn btn-secondary" href="?">
+                <i class="fa fa-times"></i>
+                <span>Очистить</span>
+            </a>
+        </form>
     </div>
 {% endblock %}

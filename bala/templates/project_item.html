@@ -2,43 +2,55 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form method="post" class="uniForm form-horizontal">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">OK</button>
-    </form>
-    <hr/>
-    <div class="button btn-secondary">Фактические постулпения по проекту:
-        {% if incomes_fact.sum %}
-            <span class="badge badge-light">
-            {{ incomes_fact.sum }}
-            </span>
-            <a href="{% url 'incomes' %}?project={{ object.id }}">Детальнее</a>
-        {% else %}
-            -
-        {% endif %}
+    <div class="row">
+        <div class="col-9">
+            <form method="post" class="uniForm form-horizontal">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">OK</button>
+            </form>
+        </div>
+        <div class="col-3">
+            <ul class="info-text">
+                <li>
+                    Фактические постулпения по проекту:
+                    {% if incomes_fact.sum %}
+                        <a href="{% url 'incomes' %}?project={{ object.id }}">
+                            <span class="badge badge-light">
+                                {{ incomes_fact.sum }}
+                            </span>
+                        </a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </li>
+                <li>
+                    Планируемые расходы по проекту:
+                    {% if outcomes_plan.sum %}
+                        <a href="{% url 'workers' %}?project={{ object.id }}">
+                            <span class="badge badge-light">
+                                 {{ outcomes_plan.sum }}
+                             </span>
+                        </a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </li>
+                <li>
+                    Фактические расходы по проекту:
+                    {% if outcomes_fact.sum %}
+                        <a href="{% url 'outcomes' %}?project={{ object.id }}">
+                            <span class="badge badge-light">
+                                {{ outcomes_fact.sum }}
+                            </span>
+                        </a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="button btn-secondary">Планируемые расходы по проекту:
-        {% if outcomes_plan.sum %}
-            <span class="badge badge-light">
-            {{ outcomes_plan.sum }}
-            </span>
-            <a href="{% url 'workers' %}?project={{ object.id }}">Детальнее</a>
-        {% else %}
-            -
-        {% endif %}
-    </div>
-    <div class="button btn-secondary">Фактические расходы по проекту:
-        {% if outcomes_fact.sum %}
-            <span class="badge badge-light">
-            {{ outcomes_fact.sum }}
-            </span>
-            <a href="{% url 'outcomes' %}?project={{ object.id }}">Детальнее</a>
-        {% else %}
-            -
-        {% endif %}
-    </div>
-    </table>
 
 
 {% endblock %}

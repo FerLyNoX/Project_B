@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item active">
+            <a class="nav-link navbar-brand" href="#">{{ title }}</a>
+        </li>
+        {% if filter %}
+            <li class="nav-item">
+                <a class="btn btn-link" data-toggle="collapse" href="#filterform" role="button" aria-expanded="false"
+                   aria-controls="filterform">
+                    <span>Фильтры</span>
+                </a>
+            </li>
+        {% endif %}
+        {%  block table-navigation %}
+        {% endblock %}
+    </ul>
+    <div class="row">
+        <div class="col">
+            {%  block main-table %}
+            {% endblock %}
+        </div>
+        {% block filter %}
+            {% include 'filter_form.html' with filter_form=filter.form %}
+        {% endblock %}
+    </div>
+{% endblock %}
