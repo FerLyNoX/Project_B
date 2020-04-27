@@ -23,15 +23,17 @@
             <span class="badge badge-light">
             {{ outcomes_plan.sum }}
             </span>
+            <a href="{% url 'workers' %}?project={{ object.id }}">Детальнее</a>
         {% else %}
             -
         {% endif %}
     </div>
     <div class="button btn-secondary">Фактические расходы по проекту:
-        {% if outcomes_fact_sum.sum %}
+        {% if outcomes_fact.sum %}
             <span class="badge badge-light">
-            {{ outcomes_fact_sum.sum }}
+            {{ outcomes_fact.sum }}
             </span>
+            <a href="{% url 'outcomes' %}?project={{ object.id }}">Детальнее</a>
         {% else %}
             -
         {% endif %}
