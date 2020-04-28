@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from bala.models import Job
 from .urls import get_urls
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def update_context(context):
@@ -13,7 +14,7 @@ def update_context(context):
     return context
 
 
-class JobListView(ListView):
+class JobListView(LoginRequiredMixin,ListView):
     model = Job
     paginate_by = 10
     context_object_name = 'jobs'
@@ -23,7 +24,7 @@ class JobListView(ListView):
         return update_context(super().get_context_data(**kwargs))
 
 
-class JobEditView(UpdateView):
+class JobEditView(LoginRequiredMixin,UpdateView):
     model = Job
     template_name = 'item.html'
     fields = ('name', 'description')
@@ -33,7 +34,7 @@ class JobEditView(UpdateView):
         return update_context(super().get_context_data(**kwargs))
 
 
-class JobCreateView(CreateView):
+class JobCreateView(LoginRequiredMixin,CreateView):
     model = Job
     template_name = 'item.html'
     fields = ('name', 'description')
@@ -43,7 +44,7 @@ class JobCreateView(CreateView):
         return update_context(super().get_context_data(**kwargs))
 
 
-class JobDeleteView(DeleteView):
+class JobDeleteView(LoginRequiredMixin,DeleteView):
     model = Job
     template_name = 'item_delete.html'
     success_url = reverse_lazy('jobs')

@@ -8,6 +8,7 @@ from .urls import get_urls
 from bala.models import Incomes
 from bala.forms import IncomeForm
 from bala.forms.widgets import DateRangePickerInput
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def update_context(context, **kwargs):
     context.update({

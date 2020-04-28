@@ -4,7 +4,7 @@ from bala.models import ProjectMembers
 from .urls import get_urls
 from django.urls import reverse_lazy
 from django_filters import FilterSet, DateRangeFilter, DateFromToRangeFilter
-from bala.forms.widgets import DateRangePickerInput
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def update_context(context, **kwargs):
@@ -22,7 +22,7 @@ class ProjectMembersFilter(FilterSet):
         fields = ('project', 'worker', 'amount', 'sum',)
 
 
-class ProjectMembersListView(ListView):
+class ProjectMembersListView(LoginRequiredMixin,ListView):
     model = ProjectMembers
     paginate_by = 10
     context_object_name = 'project-members'
@@ -40,7 +40,7 @@ class ProjectMembersListView(ListView):
         )
 
 
-class ProjectMembersEditView(UpdateView):
+class ProjectMembersEditView(LoginRequiredMixin,UpdateView):
     model = ProjectMembers
     template_name = 'item.html'
     fields = ('project', 'worker', 'amount', 'sum',)
@@ -50,7 +50,7 @@ class ProjectMembersEditView(UpdateView):
         return update_context(super().get_context_data(**kwargs))
 
 
-class ProjectMembersCreateView(CreateView):
+class ProjectMembersCreateView(LoginRequiredMixin,CreateView):
     model = ProjectMembers
     template_name = 'item.html'
     fields = ('project', 'worker', 'amount', 'sum',)
@@ -60,7 +60,7 @@ class ProjectMembersCreateView(CreateView):
         return update_context(super().get_context_data(**kwargs))
 
 
-class ProjectMembersDeleteView(DeleteView):
+class ProjectMembersDeleteView(LoginRequiredMixin,DeleteView):
     model = ProjectMembers
     template_name = 'item_delete.html'
     success_url = reverse_lazy('projects')

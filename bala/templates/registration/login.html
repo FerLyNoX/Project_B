@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4">&nbsp;</div>
+        <div class="col-4">
+
+            {% if form.errors %}
+                <p>Имя пользователя и пароль не подходят. Попробуйте еще раз.</p>
+            {% endif %}
+
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <p>Ваших прав не зватает для просмотра этой страницы. Пожалуйста авторизируйтесь.</p>
+                {% else %}
+                    <p>Пожалуйста авторизируйтесь.</p>
+                {% endif %}
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                <input type="submit" value="Войти">
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+            {# Assumes you setup the password_reset view in your URLconf #}
+{#            <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>#}
+        </div>
+        <div class="col-4">&nbsp;</div>
+    </div>
+
+{% endblock %}

@@ -123,3 +123,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK  = 'bootstrap4'
+
+LOGOUT_REDIRECT_URL = '/'

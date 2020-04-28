@@ -1,11 +1,11 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 from bala.models import Project, ProjectMembers, Incomes, Outcomes
 from .urls import get_urls
 from django.urls import reverse_lazy
-from django_filters import FilterSet, DateRangeFilter, DateFromToRangeFilter
-from bala.forms.widgets import DateRangePickerInput
+from django_filters import FilterSet
 
 
 def update_context(context, **kwargs):
@@ -25,7 +25,7 @@ class ProjectFilter(FilterSet):
         fields = ('name', 'customer', 'area', 'cost',)
 
 
-class ProjectListView(ListView):
+class ProjectListView(LoginRequiredMixin,ListView):
     model = Project
     paginate_by = 10
     context_object_name = 'projects'
@@ -43,7 +43,7 @@ class ProjectListView(ListView):
         )
 
 
-class ProjectEditView(UpdateView):
+class ProjectEditView(LoginRequiredMixin,UpdateView):
     model = Project
     template_name = 'project_item.html'
     fields = ('name', 'customer', 'area', 'cost', 'description',)
@@ -65,7 +65,7 @@ class ProjectEditView(UpdateView):
         )
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin,CreateView):
     model = Project
     template_name = 'item.html'
     fields = ('name', 'customer', 'area', 'cost', 'description',)
@@ -75,7 +75,7 @@ class ProjectCreateView(CreateView):
         return update_context(super().get_context_data(**kwargs))
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin,DeleteView):
     model = Project
     template_name = 'item_delete.html'
     success_url = reverse_lazy('projects')

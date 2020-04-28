@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django_filters import FilterSet, DateRangeFilter, DateFromToRangeFilter
 from bala.forms.widgets import DateRangePickerInput
 from bala.forms import OutcomeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def update_context(context, **kwargs):
@@ -26,7 +27,7 @@ class OutcomesFilter(FilterSet):
         fields = ('project', 'sum', 'period', 'worker',)
 
 
-class OutcomesListView(ListView):
+class OutcomesListView(LoginRequiredMixin,ListView):
     model = Outcomes
     paginate_by = 10
     context_object_name = 'outcomes'
@@ -44,7 +45,7 @@ class OutcomesListView(ListView):
         )
 
 
-class OutcomesEditView(UpdateView):
+class OutcomesEditView(LoginRequiredMixin,UpdateView):
     model = Outcomes
     template_name = 'item.html'
     form_class = OutcomeForm
@@ -54,7 +55,7 @@ class OutcomesEditView(UpdateView):
         return update_context(super().get_context_data(**kwargs))
 
 
-class OutcomesCreateView(CreateView):
+class OutcomesCreateView(LoginRequiredMixin,CreateView):
     model = Outcomes
     template_name = 'item.html'
     form_class = OutcomeForm
@@ -64,7 +65,7 @@ class OutcomesCreateView(CreateView):
         return update_context(super().get_context_data(**kwargs))
 
 
-class OutcomesDeleteView(DeleteView):
+class OutcomesDeleteView(LoginRequiredMixin,DeleteView):
     model = Outcomes
     template_name = 'item_delete.html'
     success_url = reverse_lazy('outcomes')
