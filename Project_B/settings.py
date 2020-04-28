@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'bala.apps.BalaConfig',
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,5 +122,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CRISPY_THEME_PACK = 'bootstrap4'
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK  = 'bootstrap4'
+
+LOGOUT_REDIRECT_URL = '/'

@@ -1,6 +1,10 @@
 {% extends "base.html"%}
 
 {% block content %}
+ {% block filter %}
+        {% include 'filter_form.html' with filter_form=filter.form %}
+    {%  endblock %}
+
 <table class="table table-striped">
   <thead>
   <tr>

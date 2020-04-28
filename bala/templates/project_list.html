@@ -1,35 +1,49 @@
-{% extends "base.html"%}
+{% extends "baselists.html" %}
 
-{% block content %}
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Проект</th>
-      <th scope="col">Заказчик</th>
-      <th scope="col">Площадь</th>
-      <th scope="col">Стоимость</th>
-      <th scope="col">Описание</th>
-      <th scope="col">Действия</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for project in page_obj %}
-    <tr>
-      <td>
-        <a href="{% url "project-item" pk=project.pk %}">{{ project.name }}</a>
-      </td>
-      <td>{{ project.customer }}</td>
-      <td>{{ project.area }}</td>
-      <td>{{ project.cost }}</td>
-      <td>{{ project.description}}</td>
-      <td>
-         <a href="{% url "project-delete" pk=project.pk %}" class="btn btn-danger">Удалить</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% block table-navigation %}
+            <li class="nav-item">
+    <a href="{% url "project-create" %}" class="btn btn-success">
+        <span class="lnr lnr-file-add"></span>
+        <span>Создать новый проект</span>
+    </a>
+            </li>
+{% endblock %}
+{% block main-table %}
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+            <th scope="col" >Проект</th>
+            <th scope="col" >Заказчик</th>
+            <th scope="col" >Площадь</th>
+            <th scope="col"  >Стоимость</th>
+            <th scope="col" >Описание</th>
+            <th scope="col" >Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for project in page_obj %}
+            <tr>
+                <td>
+                    <a href="{% url "project-item" pk=project.pk %}">{{ project.name }}</a>
+                </td>
+                <td>{{ project.customer }}</td>
+                <td class="text-right">{{ project.area }}</td>
+                <td class="text-right">{{ project.cost }}</td>
+                <td>{{ project.description }}</td>
+                <td>
+                    <a href="{% url "project-item" pk=project.pk %}" class="btn btn-primary">
+                        <span class="lnr lnr-pencil" />
+                        <span>Изменить</span>
+                    </a>
+                    <a href="{% url "project-delete" pk=project.pk %}" class="btn btn-danger">
+                        <span class="lnr lnr-trash" />
+                        <span>Удалить</span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-{% include "pagination.html" %}
-<a href="{% url "project-create" %}" class="btn btn-primary">Создать новый проект</a>
+    {% include "pagination.html" %}
 {% endblock %}

@@ -1,0 +1,33 @@
+:root {
+    --filter-side-width: 240px;
+    --info-text-color: #8c87e2;
+}
+
+.info-text{
+    color: var(--info-text-color);
+}
+
+.filterbar {
+    width: var(--filter-side-width);
+    max-width: var(--filter-side-width);
+    top: 0;
+    overflow-y: auto;
+    transition: all .3s ease;
+}
+
+.filterbar.collapse {
+    /*margin-right: calc(-1 * var(--filter-side-width));*/
+    left: initial;
+}
+
+.filterbar.collapse.show {
+    margin-right: 0 !important;
+}
+
+.filterbar.collapsing {
+    /*margin-right: calc(-1 * var(--filter-side-width));*/
+    right: -0.05%;
+    transition: all .25s ease;
+    height: initial;
+    width: 0;
+}

@@ -1,0 +1,16 @@
+{% load crispy_forms_tags %}
+{% block filter %}
+    <div class=" filterbar collapse faster fade-in wow" id="filterform">
+        <form method="get">
+            {{ filter_form|crispy }}
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-filter"></i>
+                <span>Применить</span>
+            </button>
+            <a class="btn btn-secondary" href="?">
+                <i class="fa fa-times"></i>
+                <span>Очистить</span>
+            </a>
+        </form>
+    </div>
+{% endblock %}
