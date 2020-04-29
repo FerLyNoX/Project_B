@@ -1,11 +1,13 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic import RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 from bala.models import Project, ProjectMembers, Incomes, Outcomes
 from .urls import get_urls
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django_filters import FilterSet
+from django.shortcuts import get_object_or_404
 
 
 def update_context(context, **kwargs):
@@ -17,12 +19,24 @@ def update_context(context, **kwargs):
     })
     return context
 
+class ProjectToggleClose(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('projects')
+
+    def get(self, request, *args, **kwargs):
+        obj = get_object_or_404(Project, pk=kwargs['pk'])
+        obj.closed = not obj.closed
+        obj.save()
+        return super().get(request, *args, **kwargs)
+
 
 class ProjectFilter(FilterSet):
 
     class Meta:
         model = Project
-        fields = ('name', 'customer', 'area', 'cost',)
+        fields = ('name', 'customer', 'area', 'cost', 'closed')
+        initial = {'closed': False}
+
 
 
 class ProjectListView(LoginRequiredMixin,ListView):

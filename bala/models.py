@@ -29,10 +29,16 @@ class Project(models.Model):
         default='',
     )
 
+    closed = models.BooleanField(
+        verbose_name="Проект закрыт",
+        blank=True,
+        default=False,
+    )
+
     class Meta:
         verbose_name = "Проект"
         verbose_name_plural = "Проекты"
-        ordering = ('name',)
+        ordering = ('id',)
 
     def __str__(self):
         return f"Проект {self.name} ({self.customer})"

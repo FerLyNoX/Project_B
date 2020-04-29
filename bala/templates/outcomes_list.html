@@ -1,51 +1,51 @@
 {% extends "baselists.html" %}
 
 {% block table-navigation %}
-            <li class="nav-item">
-    <a href="{% url "outcomes-create" %}" class="btn btn-success">
-        <span class="lnr lnr-file-add"></span>
-        <span>Создать новые расходы</span>
-    </a>
-            </li>
+    <li class="nav-item">
+        <a href="{% url "outcomes-create" %}" class="btn btn-success">
+            <span class="lnr lnr-file-add"></span>
+            <span>Создать новые расходы</span>
+        </a>
+    </li>
 {% endblock %}
 {% block main-table %}
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">Дата</th>
-    <th scope="col">Проект</th>
-    <th scope="col">Работник</th>
-    <th scope="col">Сумма</th>
-    <th scope="col">Действия</th>
-  </tr>
-  </thead>
-  <tbody>
-  {% for outcome in page_obj %}
-  <tr>
-    <td>
-      {{ outcome.date}}
-    </td>
-    <td>
-      <a href="{% url "project-item" pk=outcome.project_id %}"> {{ outcome.project.name }}</a>
-    </td>
-     <td>
-      <a href="{% url "worker-item" pk=outcome.worker_id %}">{{ outcome.worker.name }}</a>
-    </td>
-    <td>{{ outcome.sum }}</td>
-    <td>
-       <a href="{% url "outcomes-item" pk=outcome.pk %}" class="btn btn-primary">
-                        <span class="lnr lnr-pencil" />
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Дата</th>
+            <th scope="col">Проект</th>
+            <th scope="col">Работник</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for outcome in page_obj %}
+            <tr>
+                <td>
+                    {{ outcome.date }}
+                </td>
+                <td>
+                    <a href="{% url "project-item" pk=outcome.project_id %}"> {{ outcome.project.name }}</a>
+                </td>
+                <td>
+                    <a href="{% url "worker-item" pk=outcome.worker_id %}">{{ outcome.worker.name }}</a>
+                </td>
+                <td>{{ outcome.sum }}</td>
+                <td>
+                    <a href="{% url "outcomes-item" pk=outcome.pk %}" class="btn btn-primary">
+                        <span class="lnr lnr-pencil"/>
                         <span>Изменить</span>
                     </a>
                     <a href="{% url "outcomes-delete" pk=outcome.pk %}" class="btn btn-danger">
-                        <span class="lnr lnr-trash" />
+                        <span class="lnr lnr-trash"/>
                         <span>Удалить</span>
                     </a>
-    </td>
-  </tr>
-  {% endfor %}
-  </tbody>
-</table>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-  {% include "pagination.html" %}
+    {% include "pagination.html" %}
 {% endblock %}
