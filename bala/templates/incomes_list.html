@@ -1,9 +1,14 @@
-{% extends "base.html"%}
+{% extends "baselists.html" %}
 
-{% block content %}
-    {% block filter %}
-        {% include 'filter_form.html' with filter_form=filter.form %}
-    {%  endblock %}
+{% block table-navigation %}
+            <li class="nav-item">
+    <a href="{% url "incomes-create" %}" class="btn btn-success">
+        <span class="lnr lnr-file-add"></span>
+        <span>Создать новые поступления</span>
+    </a>
+            </li>
+{% endblock %}
+{% block main-table %}
 
     <table class="table table-striped">
         <thead>
@@ -11,6 +16,7 @@
             <th scope="col">Дата</th>
             <th scope="col">Проект</th>
             <th scope="col">Сумма</th>
+            <th scope="col">Действия</th>
         </tr>
         </thead>
         <tbody>
@@ -24,14 +30,18 @@
                 </td>
                 <td>{{ income.sum }}</td>
                 <td>
-                    <a href="{% url "incomes-item" pk=income.pk %}" class="btn btn-primary">Изменить</a>
-                    <a href="{% url "incomes-delete" pk=income.pk %}" class="btn btn-danger">Удалить</a>
-                </td>
+                     <a href="{% url "incomes-item" pk=income.pk %}" class="btn btn-primary">
+                        <span class="lnr lnr-pencil" />
+                        <span>Изменить</span>
+                    </a>
+                    <a href="{% url "incomes-delete" pk=income.pk %}" class="btn btn-danger">
+                        <span class="lnr lnr-trash" />
+                        <span>Удалить</span>
+                    </a>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     {% include "pagination.html" %}
-    <a href="{% url "incomes-create" %}" class="btn btn-primary">Создать новый</a>
 {% endblock %}

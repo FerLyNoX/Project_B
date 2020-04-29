@@ -14,6 +14,7 @@ def update_context(context, **kwargs):
     context.update({
         'urls': get_urls(),
         'active_menu': 'incomes',
+        'title': 'Поступления',
         **kwargs,
     })
     return context

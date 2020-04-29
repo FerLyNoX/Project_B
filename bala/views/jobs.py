@@ -10,6 +10,7 @@ def update_context(context):
     context.update({
         'urls': get_urls(),
         'active_menu': 'jobs',
+        'title': 'Проекты',
     })
     return context
 

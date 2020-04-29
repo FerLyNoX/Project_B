@@ -1,18 +1,24 @@
-{% extends "base.html"%}
+{% extends "baselists.html" %}
 
-{% block content %}
- {% block filter %}
-        {% include 'filter_form.html' with filter_form=filter.form %}
-    {%  endblock %}
+{% block table-navigation %}
+            <li class="nav-item">
+    <a href="{% url "members-create" %}" class="btn btn-success">
+        <span class="lnr lnr-file-add"></span>
+        <span>Создать нового участника проекта </span>
+    </a>
+            </li>
+{% endblock %}
+{% block main-table %}
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Проект</th>
-      <th scope="col">Работник</th>
-      <th scope="col">Сумма</th>
-    </tr>
-  </thead>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Проект</th>
+          <th scope="col">Работник</th>
+          <th scope="col">Сумма</th>
+          <th scope="col">Действие</th>
+        </tr>
+      </thead>
   <tbody>
     {% for member in page_obj %}
     <tr>
@@ -24,14 +30,19 @@
       </td>
       <td>{{ member.sum }}</td>
       <td>
-        <a href="{% url "members-item" pk=member.pk %}" class="btn btn-primary">Изменить</a>
-        <a href="{% url "members-delete" pk=member.pk %}" class="btn btn-danger">Удалить</a>
+      <a href="{% url "members-item" pk=member.pk %}" class="btn btn-primary">
+          <span class="lnr lnr-pencil" />
+          <span>Изменить</span>
+        </a>
+         <a href="{% url "members-delete" pk=member.pk %}" class="btn btn-danger">
+          <span class="lnr lnr-trash" />
+          <span>Удалить</span>
+        </a>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 
-{% include "pagination.html" %}
-<a href="{% url "members-create" %}" class="btn btn-primary">Создать нового участника</a>
-{% endblock %}
+    {% include "pagination.html" %}
+  {% endblock %}

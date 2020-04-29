@@ -1,6 +1,14 @@
-{% extends "base.html"%}
+{% extends "baselists.html" %}
 
-{% block content %}
+{% block table-navigation %}
+            <li class="nav-item">
+    <a href="{% url "job-create" %}" class="btn btn-success">
+        <span class="lnr lnr-file-add"></span>
+        <span>Создать новую работу</span>
+    </a>
+            </li>
+{% endblock %}
+{% block main-table %}
 <table class="table table-striped">
   <thead>
     <tr>
@@ -17,14 +25,19 @@
       </td>
       <td>{{ job.description }}</td>
       <td>
-        <a href="{% url "job-item" pk=job.pk %}" class="btn btn-primary">Изменить</a>
-         <a href="{% url "job-delete" pk=job.pk %}" class="btn btn-danger">Удалить</a>
+         <a href="{% url "job-item" pk=job.pk %}" class="btn btn-primary">
+                        <span class="lnr lnr-pencil" />
+                        <span>Изменить</span>
+                    </a>
+                    <a href="{% url "job-delete" pk=job.pk %}" class="btn btn-danger">
+                        <span class="lnr lnr-trash" />
+                        <span>Удалить</span>
+                    </a>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 
-{% include "pagination.html" %}
-<a href="{% url "job-create" %}" class="btn btn-primary">Создать новую</a>
+  {% include "pagination.html" %}
 {% endblock %}

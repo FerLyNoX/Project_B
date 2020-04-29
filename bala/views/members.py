@@ -11,6 +11,7 @@ def update_context(context, **kwargs):
     context.update({
         'urls': get_urls(),
         'active_menu': 'project_members',
+        'title': 'Участники проектов',
         **kwargs,
     })
     return context
@@ -40,30 +41,30 @@ class ProjectMembersListView(LoginRequiredMixin,ListView):
         )
 
 
-class ProjectMembersEditView(LoginRequiredMixin,UpdateView):
+class ProjectMembersEditView(LoginRequiredMixin, UpdateView):
     model = ProjectMembers
     template_name = 'item.html'
     fields = ('project', 'worker', 'amount', 'sum',)
-    success_url = reverse_lazy('project-members')
+    success_url = reverse_lazy('members')
 
     def get_context_data(self, *args, **kwargs):
         return update_context(super().get_context_data(**kwargs))
 
 
-class ProjectMembersCreateView(LoginRequiredMixin,CreateView):
+class ProjectMembersCreateView(LoginRequiredMixin, CreateView):
     model = ProjectMembers
     template_name = 'item.html'
     fields = ('project', 'worker', 'amount', 'sum',)
-    success_url = reverse_lazy('projects')
+    success_url = reverse_lazy('members')
 
     def get_context_data(self, *args, **kwargs):
         return update_context(super().get_context_data(**kwargs))
 
 
-class ProjectMembersDeleteView(LoginRequiredMixin,DeleteView):
+class ProjectMembersDeleteView(LoginRequiredMixin, DeleteView):
     model = ProjectMembers
     template_name = 'item_delete.html'
-    success_url = reverse_lazy('projects')
+    success_url = reverse_lazy('members')
 
     def get_context_data(self, *args, **kwargs):
         return update_context(super().get_context_data(**kwargs))

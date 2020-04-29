@@ -13,7 +13,7 @@ def update_context(context, **kwargs):
         'urls': get_urls(),
         'active_menu': 'projects',
         'title': 'Проекты',
-    **kwargs,
+        **kwargs,
     })
     return context
 
