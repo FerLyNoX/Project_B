@@ -2,33 +2,43 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form method="post" class="uniForm form-horizontal">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">OK</button>
-    </form>
-    <hr/>
-    <div class="button btn-secondary">Фактические постулпения работнику:
-        {% if plan.sum %}
-            <span class="badge badge-light">
-            {{ plan.sum }}
-            </span>
-            <a href="{% url 'members' %}?worker={{ object.id }}">Детальнее</a>
-        {% else %}
-            -
-        {% endif %}
-    </div>
-    <div class="button btn-secondary">Фактические расходы по работнику:
-        {% if fact.sum %}
-            <span class="badge badge-light">
+    <div class="row">
+        <div class="col-9">
+            <form method="post" class="uniForm form-horizontal">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">OK</button>
+            </form>
+        </div>
+        <div class="col-3">
+            <ul class="info-text">
+                <li>
+                    Плановые расходы по работнику:
+                    {% if plan.sum %}
+                        <a href="{% url 'members' %}?worker={{ object.id }}">
+                                <span class="badge badge-light">
+                                    {{ plan.sum }}
+                                </span>
+                        </a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </li>
+                <li>
+                    Фактические расходы по работнику:
+                    {% if fact.sum %}
+                        <a href="{% url 'outcomes' %}?worker={{ object.id }}">
+                    <span class="badge badge-light">
             {{ fact.sum }}
-            </span>
-            <a href="{% url 'outcomes' %}?worker={{ object.id }}">Детальнее</a>
-        {% else %}
-            -
-        {% endif %}
+                        </span>
+                        </a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
     </div>
-    </table>
 
 
 {% endblock %}
