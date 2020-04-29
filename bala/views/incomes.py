@@ -60,7 +60,7 @@ class IncomesEditView(UpdateView):
 class IncomesCreateView(CreateView):
     model = Incomes
     template_name = 'item.html'
-    fields = ('date', 'project', 'sum',)
+    form_class = IncomeForm
     success_url = reverse_lazy('incomes')
 
     def get_context_data(self, *args, **kwargs):
