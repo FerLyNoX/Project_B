@@ -1,13 +1,14 @@
 <div class="d-flex">
     <div class="input-group date" id="{{ widget.datepicker_from_id }}" data-target-input="nearest">
-        {% include "django/forms/widgets/input.html" with widget=widget.subwidgets|first %}
+        {% include "widgets/django/input.html" with widget=widget.subwidgets|first %}
+        <
         <div class="input-group-append" data-target="#{{ widget.datepicker_from_id }}" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
     </div>
 
     <div class="input-group date" id="{{ widget.datepicker_to_id }}" data-target-input="nearest">
-        {% include "django/forms/widgets/input.html" with widget=widget.subwidgets|last %}
+        {% include "widgets/django/input.html" with widget=widget.subwidgets|last %}
         <div class="input-group-append" data-target="#{{ widget.datepicker_to_id }}" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
