@@ -1,11 +1,12 @@
 from django.forms import DateTimeInput, DateInput
 from django_filters.widgets import DateRangeWidget
+import os
 
 __all__ = ('DatePickerInput', 'DateTimePickerInput', 'DateRangePickerInput')
 
 
 class DatePickerInput(DateInput):
-    template_name = 'widgets\datepicker.html'
+    template_name = 'widgets/datepicker.html'
 
     def get_context(self, name, value, attrs):
         datepicker_id = f'datepicker_{name}'
@@ -17,8 +18,9 @@ class DatePickerInput(DateInput):
         context['widget']['datepicker_id'] = datepicker_id
         return context
 
+
 class DateRangePickerInput(DateRangeWidget):
-    template_name = 'widgets\daterangepicker.html'
+    template_name = 'widgets/daterangepicker.html'
 
     def get_context(self, name, value, attrs):
         datepicker_from_id = f'datepicker_from_{name}'
@@ -34,10 +36,10 @@ class DateRangePickerInput(DateRangeWidget):
 
 
 class DateTimePickerInput(DateTimeInput):
-    template_name = 'widgets\datetimepicker.html'
+    template_name = 'widgets/datetimepicker.html'
 
     def get_context(self, name, value, attrs):
-        datetimepicker_id =f'datetimepicker_{name}'
+        datetimepicker_id = f'datetimepicker_{name}'
         if attrs is None:
             attrs = dict()
         attrs['data-target'] = '#{id}'.format(id=datetimepicker_id)
