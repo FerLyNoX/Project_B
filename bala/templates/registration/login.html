@@ -7,7 +7,7 @@
         <div class="mx-auto border rounded p-5" style="width: 600px">
 
             {% if form.errors %}
-                <p>Имя пользователя и пароль не подходят. Попробуйте еще раз.</p>
+                <p class="info-text">Имя пользователя и пароль не подходят. Попробуйте еще раз.</p>
             {% endif %}
 
             {% if next %}
@@ -22,7 +22,7 @@
                 {% csrf_token %}
                 {{ form|crispy }}
 
-                <input type="submit" value="Войти">
+                <button type="submit" class="btn btn-primary w-100">Вход</button>
                 <input type="hidden" name="next" value="{{ next }}">
             </form>
             {# Assumes you setup the password_reset view in your URLconf #}

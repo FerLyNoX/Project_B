@@ -30,11 +30,11 @@ class ProjectMembersListView(LoginRequiredMixin,ListView):
     template_name = 'members_list.html'
 
     def get_queryset(self):
-        fff = ProjectMembersFilter(self.request.GET, queryset=ProjectMembers.objects.order_by('id'))
+        fff = ProjectMembersFilter(self.request.GET, queryset=ProjectMembers.objects.all())
         return fff.qs
 
     def get_context_data(self, *args, **kwargs):
-        fff = ProjectMembersFilter(self.request.GET, queryset=ProjectMembers.objects.order_by('id'))
+        fff = ProjectMembersFilter(self.request.GET, queryset=ProjectMembers.objects.all())
         return update_context(
             super().get_context_data(*args, **kwargs),
             filter=fff,

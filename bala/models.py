@@ -32,6 +32,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = "Проект"
         verbose_name_plural = "Проекты"
+        ordering = ('name',)
 
     def __str__(self):
         return f"Проект {self.name} ({self.customer})"
@@ -57,6 +58,7 @@ class Job(models.Model):
     class Meta:
         verbose_name = "Работа"
         verbose_name_plural = "Работы"
+        ordering = ('name',)
 
 
 class Worker(models.Model):
@@ -90,6 +92,7 @@ class Worker(models.Model):
     class Meta:
         verbose_name = "Работник"
         verbose_name_plural = "Работники"
+        ordering = ('name',)
 
 
 class Incomes(models.Model):
@@ -114,6 +117,7 @@ class Incomes(models.Model):
     class Meta:
         verbose_name = "Поступления"
         verbose_name_plural = "Поступления"
+        ordering = ('date',)
 
 
 class Outcomes(models.Model):
@@ -144,6 +148,7 @@ class Outcomes(models.Model):
     class Meta:
         verbose_name = "Расход"
         verbose_name_plural = "Расходы"
+        ordering = ('date',)
 
 
 class ProjectMembers(models.Model):
