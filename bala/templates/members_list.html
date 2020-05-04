@@ -16,6 +16,9 @@
             <th scope="col">Проект</th>
             <th scope="col">Работник</th>
             <th scope="col">Сумма</th>
+            <th scope="col">Сумма и дата первого платежа</th>
+            <th scope="col">Сумма и дата последнего платежа</th>
+            <th scope="col">Остаток</th>
             <th scope="col">Действие</th>
         </tr>
         </thead>
@@ -29,6 +32,26 @@
                     <a href="{% url "worker-item" pk=member.worker_id %}">{{ member.worker.name }}</a>
                 </td>
                 <td>{{ member.sum }}</td>
+                <td class="text-right">
+                    {% if member.pay_sum1 %}
+                        {{ member.pay_sum1 }} <hr/>  {{ member.pay_date1 }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td class="text-right">
+                    {% if member.pay_sum2 %}
+                       {{ member.pay_sum2 }} <hr/> {{ member.pay_date2 }}</td>
+                    {% else %}
+                        -
+                    {% endif %}
+                <td class="text-right">
+                     {% if member.balance_sum %}
+                        {{ member.balance_sum|floatformat:2 }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{% url "members-item" pk=member.pk %}" class="btn btn-primary">
                         <span class="lnr lnr-pencil"/>

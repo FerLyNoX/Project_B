@@ -16,6 +16,9 @@
             <th scope="col">Заказчик</th>
             <th scope="col">Площадь</th>
             <th scope="col">Стоимость</th>
+            <th scope="col">Сумма и дата первого платежа</th>
+            <th scope="col">Сумма и дата последнего платежа</th>
+            <th scope="col">Остаток</th>
             <th scope="col">Описание</th>
             <th scope="col">Действия</th>
         </tr>
@@ -29,6 +32,26 @@
                 <td>{{ project.customer }}</td>
                 <td class="text-right">{{ project.area }}</td>
                 <td class="text-right">{{ project.cost }}</td>
+                <td class="text-right">
+                    {% if project.pay_sum1 %}
+                        {{ project.pay_sum1 }} <hr/>  {{ project.pay_date1 }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td class="text-right">
+                    {% if project.pay_sum2 %}
+                       {{ project.pay_sum2 }} <hr/> {{ project.pay_date2 }}</td>
+                    {% else %}
+                        -
+                    {% endif %}
+                <td class="text-right">
+                     {% if project.balance_sum %}
+                        {{ project.balance_sum }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
                 <td>{{ project.description }}</td>
                 <td>
                     <a href="{% url "project-item" pk=project.pk %}" class="btn btn-primary">

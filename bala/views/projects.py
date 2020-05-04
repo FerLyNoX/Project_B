@@ -2,7 +2,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Sum
+from django.db.models import Sum,Subquery, OuterRef, F, Case, When, Count
 from bala.models import Project, ProjectMembers, Incomes, Outcomes
 from .urls import get_urls
 from django.urls import reverse_lazy, reverse
@@ -45,12 +45,33 @@ class ProjectListView(LoginRequiredMixin,ListView):
     context_object_name = 'projects'
     template_name = 'project_list.html'
 
+    @property
+    def qs(self):
+        sub1 = Incomes.objects.filter(project=OuterRef('pk')).order_by('date')
+        sub2 = Incomes.objects.filter(project=OuterRef('pk')).order_by('-date')
+        qs = Project.objects.all().annotate(
+            inc_count = Count('incomes__id')
+        ).annotate(
+            pay_sum1 = Subquery(sub1.values('sum')[:1]),
+            pay_date1= Subquery(sub1.values('date')[:1]),
+            balance_sum=F('cost')-Sum('incomes__sum'),
+            pay_sum2 = Case(
+                When(inc_count__gt = 1, then =Subquery(sub2.values('sum')[:1])),
+                default=None
+            ),
+            pay_date2=Case(
+                When(inc_count__gt=1, then=Subquery(sub2.values('date')[:1])),
+                default=None
+            ),
+        )
+        return qs
+
     def get_queryset(self):
-        fff = ProjectFilter(self.request.GET, queryset=Project.objects.all())
+        fff = ProjectFilter(self.request.GET, queryset=self.qs)
         return fff.qs
 
     def get_context_data(self, *args, **kwargs):
-        fff = ProjectFilter(self.request.GET, queryset=Project.objects.all())
+        fff = ProjectFilter(self.request.GET, queryset=self.qs)
         return update_context(
             super().get_context_data(*args, **kwargs),
             filter=fff,
